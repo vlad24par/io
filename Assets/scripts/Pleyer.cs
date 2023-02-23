@@ -19,7 +19,7 @@ public class Pleyer : MonoBehaviour
     [SerializeField] TextMeshProUGUI rooting_time;
 
     private float vertical = 1;
-    public float weight = 1;
+    private float weight = 1;
     public float weightgain;
     public float scaleModificator = 10;
     public bool NormalCameraMove;

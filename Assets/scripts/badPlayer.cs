@@ -12,7 +12,7 @@ public class badPlayer : MonoBehaviour
     [SerializeField] Collider2D collider;
     [SerializeField] float maxDistans;
     [SerializeField] FoodSpawner spawner;
-    [SerializeField] GameObject Player;
+    [SerializeField] Pleyer Player;
 
     public float Bad_weight = 1;
     public float weightgain;
@@ -100,11 +100,11 @@ public class badPlayer : MonoBehaviour
         }
         else if (collision.CompareTag("Player"))
         {
-            //if (Player.weight <= Bad_weight/3)
+            if (Player.Weight <= Bad_weight/3)
             {
                 Eat();
             }
-            //else
+            else
             {
                 ran();
             }
