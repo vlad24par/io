@@ -296,7 +296,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Speed up
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -305,8 +305,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4280229663
+  m_fontColor: {r: 0.122641504, g: 0.12090602, b: 0.12090602, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -388,9 +388,9 @@ RectTransform:
   m_Father: {fileID: 1597037802}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.00000061095, y: 7.49}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 463.42276, y: 84.0576}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &81128712
@@ -1038,6 +1038,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1126,6 +1127,19 @@ MonoBehaviour:
   camera_scale: 10
   pleyer: {fileID: 1893259657}
   camera_modifier: 0
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 079043cd9849e4527bc82d97ed9c1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeScale: 1
 --- !u!1 &595842438
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,7 +1634,6 @@ GameObject:
   - component: {fileID: 807769506}
   - component: {fileID: 807769505}
   - component: {fileID: 807769504}
-  - component: {fileID: 807769509}
   - component: {fileID: 807769508}
   m_Layer: 2
   m_Name: badPlayer
@@ -1663,7 +1676,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.010853857, y: 0}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.49993345
 --- !u!212 &807769506
@@ -1708,7 +1721,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 200
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.029343128, a: 1}
+  m_Color: {r: 1, g: 0.77835596, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1745,12 +1758,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff8f745623467a4d97f85e10570cd59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
+  speed: 1
   rigidbody: {fileID: 807769504}
   collider: {fileID: 807769505}
   maxDistans: 5
   spawner: {fileID: 1724855879}
-  Player: {fileID: 0}
+  Player: {fileID: 1893259657}
   Bad_weight: 1
   weightgain: 5
   scaleModificator: 10
@@ -1759,22 +1772,6 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 51
---- !u!58 &807769509
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 807769503}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.022008896, y: 0.02180481}
-  serializedVersion: 2
-  m_Radius: 4.944992
 --- !u!1 &852931792
 GameObject:
   m_ObjectHideFlags: 0

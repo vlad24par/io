@@ -71,25 +71,24 @@ public class Pleyer : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var food = collision.GetComponent<Food>();
-        if (CompareTag("badplayer"))
+        if (collision.CompareTag("badPlayer"))
         {
+            var enemy = collision.GetComponent<badPlayer>();
+            enemy.Die();
+            AddWeight(enemy.Bad_weight);
             return;
         }
         if (food.size <= weight/3)
         {
             NormalCameraMove = true;
-            weight = weight + food.size;
-            WeightChange?.Invoke(weight);
-            FoodImage.fillAmount += food.size /100;
+            AddWeight(food.size);
             Destroy(collision.gameObject);
         }
         else
         {
             NormalCameraMove = false;
             food.size = food.size / 2;
-            weight = weight + food.size;
-            WeightChange?.Invoke(weight);
-            FoodImage.fillAmount += food.size / 200;
+            AddWeight(food.size);
         }
 
         var weightInPercent = weight  / GameConfig.MaxWeight;
@@ -123,5 +122,12 @@ public class Pleyer : MonoBehaviour
             time = time + weight;
             StartCoroutine("speed_up_coroutine");
         }
+    }
+
+    private void AddWeight(float addAmount)
+    {
+        weight += addAmount;
+        WeightChange?.Invoke(weight);
+        FoodImage.fillAmount += addAmount /100;
     }
 } 

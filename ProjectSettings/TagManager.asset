@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Food
   - badPlayer
-  - badfood
   layers:
   - Default
   - TransparentFX

@@ -8,18 +8,10 @@ using System;
 public class badPlayer : MonoBehaviour
 {
     [SerializeField] float speed;
-    [SerializeField] Rigidbody2D rigidbody;
-    [SerializeField] Collider2D collider;
-    [SerializeField] float maxDistans;
     [SerializeField] FoodSpawner spawner;
     [SerializeField] Pleyer Player;
 
     public float Bad_weight = 1;
-    public float weightgain;
-    public float scaleModificator = 10;
-    public bool NormalCameraMove;
-    public Transform food;
-    public LayerMask layer;
 
     private Food target;
     private bool isOnTarget = false;
@@ -30,34 +22,8 @@ public class badPlayer : MonoBehaviour
 
     private void Start()
     {
-        Time.timeScale = 1;
-        food = gameObject.transform;
-        
         findFoodCorutine = FindFood();
         StartCoroutine(findFoodCorutine);
-    }
-    private void Update()
-    {
-        // Vector3 direction = Vector3.zero;
-        //
-        // if (Physics2D.Raycast(transform.position,Vector2.up, maxDistans))
-        // {
-        //     direction.y += 1;
-        // }
-        // if (Physics2D.Raycast(transform.position, Vector2.right, maxDistans)) 
-        // {
-        //     direction.x -= 1;
-        // }
-        // if (Physics2D.Raycast(transform.position, Vector2.left, maxDistans))
-        // {
-        //     direction.x += 1;
-        // }
-        // if (Physics2D.Raycast(transform.position, Vector2.down, maxDistans))
-        // {
-        //     direction.y -= 1;
-        // }
-        //
-        // transform.position = Vector3.Lerp(transform.position, transform.position + direction * speed, 0.1f);
     }
 
     private IEnumerator FindFood()
@@ -75,13 +41,15 @@ public class badPlayer : MonoBehaviour
                 if (triggeredObjects.Contains(target.gameObject))
                 {
                     triggeredObjects.Remove(target.gameObject);
-                    Eat();
+                    Eat(target);
                 }
+
+                isOnTarget = false;
             }
 
             if (!isOnTarget)
             {
-                transform.position = Vector3.Lerp(transform.position, target.transform.position, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
             }
             
             yield return null;
@@ -94,21 +62,23 @@ public class badPlayer : MonoBehaviour
         {
             player_in_collider = false;
             triggeredObjects.Add(collision.gameObject);
-            Eat();
+            Eat(collision.GetComponent<Food>());
         }
         else if (collision.CompareTag("Player"))
         {
             if (Player.Weight <= Bad_weight / 3)
             {
                 player_in_collider = true;
-                Eat();
+                EatPlayer();
             }
             else
             {
                 return;
             }
         }
-        isOnTarget = true;
+
+        if (collision.gameObject == target.gameObject)
+            isOnTarget = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -120,30 +90,30 @@ public class badPlayer : MonoBehaviour
         if (target.gameObject == null)
         {
             isOnTarget = false;
-            return;
-        }
-        if (collision.gameObject == target.gameObject)
-        {
-            isOnTarget = false;
         }
     }
 
-    private void Eat()
+    public void Die()
     {
-        if (player_in_collider)
-        {
-            Bad_weight += Player.weight;
-            Pleyer.Destroy(gameObject);
-        }
-        else
-        {
-            Bad_weight += target.size;
-        }
-        Destroy(target.gameObject);
+        Destroy(gameObject);
+    }
+
+    private void Eat(Food food)
+    {
+        Bad_weight += food.size;
+
+        if (food != null)
+            Destroy(food.gameObject);
         isOnTarget = false;
 
         var weightInPercent = Bad_weight / GameConfig.MaxWeight;
         var scaleModificator = weightInPercent * GameConfig.MaxScale + 1;
         transform.localScale = Vector3.one * scaleModificator;
+    }
+
+    private void EatPlayer()
+    {
+        Bad_weight += Player.weight;
+        Destroy(Player.gameObject);
     }
 }
