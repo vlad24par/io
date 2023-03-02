@@ -128,6 +128,7 @@ public class Pleyer : MonoBehaviour
     {
         weight += addAmount;
         WeightChange?.Invoke(weight);
-        FoodImage.fillAmount += addAmount /100;
+        var weightInPercent = weight  / GameConfig.MaxWeight;
+        FoodImage.fillAmount = weightInPercent;
     }
 } 
