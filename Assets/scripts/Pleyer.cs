@@ -19,7 +19,7 @@ public class Pleyer : MonoBehaviour
     [SerializeField] TextMeshProUGUI rooting_time;
 
     private float vertical = 1;
-    private float weight = 1;
+    public float weight = 1;
     public float weightgain;
     public float scaleModificator = 10;
     public bool NormalCameraMove;
@@ -71,6 +71,10 @@ public class Pleyer : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var food = collision.GetComponent<Food>();
+        if (CompareTag("badplayer"))
+        {
+            return;
+        }
         if (food.size <= weight/3)
         {
             NormalCameraMove = true;

@@ -25,6 +25,7 @@ public class badPlayer : MonoBehaviour
     private bool isOnTarget = false;
     private IEnumerator findFoodCorutine;
     private List<GameObject> triggeredObjects = new List<GameObject>();
+    private bool player_in_collider;
 
 
     private void Start()
@@ -80,7 +81,7 @@ public class badPlayer : MonoBehaviour
 
             if (!isOnTarget)
             {
-                transform.position = Vector3.Lerp(transform.position, target.transform.position, 1f * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, target.transform.position, speed * Time.deltaTime);
             }
             
             yield return null;
@@ -91,22 +92,20 @@ public class badPlayer : MonoBehaviour
     {
         if (collision.CompareTag("Food"))
         {
+            player_in_collider = false;
             triggeredObjects.Add(collision.gameObject);
             Eat();
         }
-        else if (collision.CompareTag("badfood"))
-        {
-            return;
-        }
         else if (collision.CompareTag("Player"))
         {
-            if (Player.Weight <= Bad_weight/3)
+            if (Player.Weight <= Bad_weight / 3)
             {
+                player_in_collider = true;
                 Eat();
             }
             else
             {
-                ran();
+                return;
             }
         }
         isOnTarget = true;
@@ -131,16 +130,20 @@ public class badPlayer : MonoBehaviour
 
     private void Eat()
     {
-        Bad_weight += target.size;
+        if (player_in_collider)
+        {
+            Bad_weight += Player.weight;
+            Pleyer.Destroy(gameObject);
+        }
+        else
+        {
+            Bad_weight += target.size;
+        }
         Destroy(target.gameObject);
         isOnTarget = false;
 
         var weightInPercent = Bad_weight / GameConfig.MaxWeight;
         var scaleModificator = weightInPercent * GameConfig.MaxScale + 1;
         transform.localScale = Vector3.one * scaleModificator;
-    }
-    private void ran()
-    {
-        
     }
 }
