@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] GameObject ExitButton;
     [SerializeField] GameObject Die;
     [SerializeField] GameObject WIN;
-    [SerializeField] private Pleyer _eventsSample;
+    [SerializeField] private Pleyer _pleyer;
 
     private void Start()
     {
@@ -20,8 +21,14 @@ public class UiManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        _eventsSample.DieEndWin += WinOrDie;
+        _pleyer.DieEndWin += WinOrDie;
     }
+
+    private void OnDisable()
+    {
+        _pleyer.DieEndWin -= WinOrDie;
+    }
+
     public void Replay()
     {
         SceneManager.LoadScene(0);
@@ -49,9 +56,10 @@ public class UiManager : MonoBehaviour
         pause.SetActive(true);
         Time.timeScale = 1;
     }
-    public void WinOrDie(float weighe) 
+    
+    public void WinOrDie(float weight) 
     {
-        if (weighe > 200)
+        if (weight > 200)
         {
             WIN.SetActive(true);
             Time.timeScale = 0;

@@ -7,8 +7,6 @@ using System;
 
 public class Pleyer : MonoBehaviour
 {
-    public event Action<float> DieEndWin;
-
     [SerializeField] float speed;
     [SerializeField] Rigidbody2D rigidbody;
     [SerializeField] GameObject PanelDie;
@@ -31,6 +29,7 @@ public class Pleyer : MonoBehaviour
     public float Weight => weight;
 
     public event Action<float> WeightChange;
+    public event Action<float> DieEndWin;
 
     private void Start()
     {
@@ -39,6 +38,12 @@ public class Pleyer : MonoBehaviour
         Time.timeScale = 1;
         food = this.gameObject.transform;
     }
+
+    private void OnDestroy()
+    {
+        DieEndWin?.Invoke(weight);
+    }
+
     private void Update()
     {
         Vector3 direction = Vector3.zero;
@@ -71,13 +76,13 @@ public class Pleyer : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var food = collision.GetComponent<Food>();
-        if (collision.CompareTag("badPlayer"))
-        {
-            var enemy = collision.GetComponent<badPlayer>();
-            enemy.Die();
-            AddWeight(enemy.Bad_weight);
-            return;
-        }
+        // if (collision.CompareTag("badPlayer"))
+        // {
+        //     var enemy = collision.GetComponent<badPlayer>();
+        //     enemy.Die();
+        //     AddWeight(enemy.Bad_weight);
+        //     return;
+        // }
         if (food.size <= weight/3)
         {
             NormalCameraMove = true;

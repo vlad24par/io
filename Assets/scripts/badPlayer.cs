@@ -58,15 +58,11 @@ public class badPlayer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Food"))
+        if (collision.CompareTag("Food") || collision.CompareTag("Badfood"))
         {
             player_in_collider = false;
             triggeredObjects.Add(collision.gameObject);
             Eat(collision.GetComponent<Food>());
-        }
-        else if (collision.CompareTag("BadFood"))
-        {
-            return;
         }
         else if (collision.CompareTag("Player"))
         {
