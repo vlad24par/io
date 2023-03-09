@@ -64,10 +64,15 @@ public class badPlayer : MonoBehaviour
             triggeredObjects.Add(collision.gameObject);
             Eat(collision.GetComponent<Food>());
         }
+        else if (collision.CompareTag("BadFood"))
+        {
+            return;
+        }
         else if (collision.CompareTag("Player"))
         {
             if (Player.Weight <= Bad_weight / 3)
             {
+                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
                 player_in_collider = true;
                 EatPlayer();
             }
@@ -114,6 +119,6 @@ public class badPlayer : MonoBehaviour
     private void EatPlayer()
     {
         Bad_weight += Player.weight;
-        Destroy(Player.gameObject);
+        Player.weight = -1;
     }
 }
