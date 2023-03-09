@@ -76,13 +76,24 @@ public class Pleyer : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var food = collision.GetComponent<Food>();
-        // if (collision.CompareTag("badPlayer"))
-        // {
-        //     var enemy = collision.GetComponent<badPlayer>();
-        //     enemy.Die();
-        //     AddWeight(enemy.Bad_weight);
-        //     return;
-        // }
+        
+        if (collision.CompareTag("badPlayer"))
+        {
+            var enemy = collision.gameObject.GetComponent<badPlayer>();
+            
+            if(enemy.Bad_weight >= weight/3)
+            {
+                DieEndWin?.Invoke(weight);
+            }
+            else
+            {
+                enemy.Die();
+                AddWeight(enemy.Bad_weight);
+            }
+            
+            return;
+        }
+        
         if (food.size <= weight/3)
         {
             NormalCameraMove = true;

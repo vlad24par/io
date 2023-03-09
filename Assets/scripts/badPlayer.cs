@@ -8,8 +8,9 @@ using System;
 public class badPlayer : MonoBehaviour
 {
     [SerializeField] float speed;
-    [SerializeField] FoodSpawner spawner;
-    [SerializeField] Pleyer Player;
+    
+    private FoodSpawner spawner;
+    private Pleyer player;
 
     public float Bad_weight = 1;
 
@@ -19,9 +20,12 @@ public class badPlayer : MonoBehaviour
     private List<GameObject> triggeredObjects = new List<GameObject>();
     private bool player_in_collider;
 
+    public event Action<badPlayer> OnDie;
 
-    private void Start()
+    public void Init(Pleyer player, FoodSpawner spawner)
     {
+        this.player = player;
+        this.spawner = spawner;
         findFoodCorutine = FindFood();
         StartCoroutine(findFoodCorutine);
     }
@@ -66,7 +70,7 @@ public class badPlayer : MonoBehaviour
         }
         else if (collision.CompareTag("Player"))
         {
-            if (Player.Weight <= Bad_weight / 3)
+            if (player.Weight <= Bad_weight / 3)
             {
                 transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
                 player_in_collider = true;
@@ -96,6 +100,7 @@ public class badPlayer : MonoBehaviour
 
     public void Die()
     {
+        OnDie?.Invoke(this);
         Destroy(gameObject);
     }
 
@@ -114,7 +119,7 @@ public class badPlayer : MonoBehaviour
 
     private void EatPlayer()
     {
-        Bad_weight += Player.weight;
-        Player.weight = -1;
+        Bad_weight += player.weight;
+        player.weight = -1;
     }
 }
