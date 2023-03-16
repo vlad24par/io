@@ -39,29 +39,10 @@ public class Pleyer : MonoBehaviour
         Time.timeScale = 1;
         food = this.gameObject.transform;
     }
-    private void Update()
-    {
-        Vector3 direction = Vector3.zero;
-        
-        if (Input.GetKey(KeyCode.W))
-        {
-            direction.y += 1;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            direction.x -= 1;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            direction.x += 1;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            direction.y -= 1;
-        }
 
+    public void Move(Vector3 direction)
+    {
         transform.position = Vector3.Lerp(transform.position, transform.position + direction * speed, 0.1f);
-        
         if (weight <= 0 || weight > GameConfig.MaxWeight)
         {
             DieEndWin?.Invoke(weight);
@@ -74,8 +55,16 @@ public class Pleyer : MonoBehaviour
         if (collision.CompareTag("badPlayer") )
         {
             var enemy = collision.GetComponent<badPlayer>();
-            enemy.Die();
-            AddWeight(enemy.Bad_weight);
+            
+            if(enemy.Bad_weight >= weight/3)
+            {
+                DieEndWin?.Invoke(weight);
+            }
+            else
+            {
+                enemy.Die();
+                AddWeight(enemy.Bad_weight);
+            }
             return;
         }
         if (food.size <= weight/3)

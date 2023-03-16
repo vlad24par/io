@@ -15,10 +15,6 @@ public class UiManager : MonoBehaviour
     [SerializeField] GameObject WIN;
     [SerializeField] private Pleyer _pleyer;
 
-    private void Start()
-    {
-
-    }
     private void OnEnable()
     {
         _pleyer.DieEndWin += WinOrDie;
@@ -31,12 +27,12 @@ public class UiManager : MonoBehaviour
 
     public void Replay()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     
     public void Exit()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
     
     public void Pause()
