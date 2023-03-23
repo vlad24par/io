@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System;
+using Random = UnityEngine.Random;
 
 public class badPlayer : MonoBehaviour
 {
-    [SerializeField] float speed;
+    [SerializeField] float speedMin;
+    [SerializeField] float speedMax;
     
     private FoodSpawner spawner;
     private Pleyer player;
 
     public float Bad_weight = 1;
 
+    private float speed;
     private Food target;
     private bool isOnTarget = false;
     private IEnumerator findFoodCorutine;
@@ -26,6 +27,7 @@ public class badPlayer : MonoBehaviour
     {
         this.player = player;
         this.spawner = spawner;
+        speed = Random.Range(speedMin, speedMax);
         findFoodCorutine = FindFood();
         StartCoroutine(findFoodCorutine);
     }
@@ -53,7 +55,8 @@ public class badPlayer : MonoBehaviour
 
             if (!isOnTarget)
             {
-                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 
+                    speed * Time.deltaTime);
             }
             
             yield return null;
@@ -72,7 +75,8 @@ public class badPlayer : MonoBehaviour
         {
             if (player.Weight <= Bad_weight / 3)
             {
-                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, target.transform.position,
+                    speed * Time.deltaTime);
                 player_in_collider = true;
                 EatPlayer();
             }

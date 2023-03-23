@@ -7,9 +7,6 @@ using Random = UnityEngine.Random;
 public class FoodSpawner : MonoBehaviour
 {
     [SerializeField] Food foodPrefab;
-    [SerializeField] float RandX;
-    [SerializeField] Vector3 position;
-    [SerializeField] float RandY;
     [SerializeField] BadFood badFoodPrefab;
     [SerializeField] Transform playersTransform;
     [SerializeField] Transform goodFoodParent;
@@ -31,12 +28,23 @@ public class FoodSpawner : MonoBehaviour
 
     private IEnumerator SpawnGoodFoodCoroutine()
     {
+        for (int i = 0; i < 2; i++)
+        {
+            // var x = /условие/ ? /если условие тру/ : /если условие фолз/;
+            var x = i == 0 ? 1 : -1;
+            
+            var position = new Vector3(x, Random.Range(-2, 2));
+            var newFood = Instantiate(foodPrefab, position, Quaternion.identity, goodFoodParent);
+            _goodFood.Add(newFood);
+            newFood.Die += OnGoodFoodDie;
+        }
+        
         while (true)
         {
-            RandX = GetRandomX();
-            RandY = GetRandomY();
+            var RandX = GetRandomX();
+            var RandY = GetRandomY();
             
-            position = new Vector3(RandX, RandY);
+            var position = new Vector3(RandX, RandY);
             var newFood = Instantiate(foodPrefab, position, Quaternion.identity, goodFoodParent);
             _goodFood.Add(newFood);
             newFood.Die += OnGoodFoodDie;
@@ -49,10 +57,10 @@ public class FoodSpawner : MonoBehaviour
     {
         while (true)
         {
-            RandX = GetRandomX();
-            RandY = GetRandomY();
+            var RandX = GetRandomX();
+            var RandY = GetRandomY();
             
-            position = new Vector3(RandX, RandY);
+            var position = new Vector3(RandX, RandY);
             var badFood = Instantiate(badFoodPrefab, position, Quaternion.identity, badFoodParent);
             _badFood.Add(badFood);
             badFood.Die += OnBadFoodDie;

@@ -63,7 +63,7 @@ public class Pleyer : MonoBehaviour
             else
             {
                 enemy.Die();
-                AddWeight(enemy.Bad_weight);
+                AddWeight(enemy.Bad_weight / 3);
             }
             return;
         }

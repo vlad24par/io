@@ -5937,9 +5937,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f04dad70c5964ee4e923a1678e6387ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera_scale: 10
+  minZoom: -8
+  maxZoom: -350
   pleyer: {fileID: 1893259657}
-  camera_modifier: 0
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.861323
+      outSlope: 2.861323
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.04451035
+    - serializedVersion: 3
+      time: 0.10282904
+      value: 0.29900676
+      inSlope: 0.3440929
+      outSlope: 0.3440929
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.054388635
+    - serializedVersion: 3
+      time: 1
+      value: 0.9976425
+      inSlope: 1.6058388
+      outSlope: 1.6058388
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.05664542
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  progressUi: {fileID: 270574584}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13011,7 +13045,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0.4185
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -13054,9 +13088,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodPrefab: {fileID: 5865977181651452020, guid: fa603f81baf62a64394ac048f8003eee, type: 3}
-  RandX: 1
-  position: {x: 0, y: 0, z: 0}
-  RandY: 0
   badFoodPrefab: {fileID: 8438618947674135649, guid: 7f2296750583dce4f8648a821ae4da88, type: 3}
   playersTransform: {fileID: 1893259656}
   goodFoodParent: {fileID: 1089655344}

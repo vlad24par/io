@@ -11,6 +11,8 @@ public class ProgressUi : MonoBehaviour
     [SerializeField] TextMeshProUGUI textMeshPro;
     [SerializeField] Image image;
 
+    public float WeightPercent => image.fillAmount;
+    
     private void OnEnable()
     {
         player.WeightChange += OnWeightChange;
