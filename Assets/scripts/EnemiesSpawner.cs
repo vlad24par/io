@@ -5,13 +5,13 @@ using UnityEngine;
 public class EnemiesSpawner : MonoBehaviour
 {
     [SerializeField] private int numEnemies;
-    [SerializeField] private badPlayer enemyPrefab;
+    [SerializeField] private BadPlayer enemyPrefab;
     [SerializeField] private Pleyer player;
     [SerializeField] private FoodSpawner spawner;
 
-    private List<badPlayer> badPlayers = new List<badPlayer>();
+    private List<BadPlayer> badPlayers = new List<BadPlayer>();
 
-    void Start()
+    private void Start()
     {
         for (int i = 0; i < numEnemies; i++)
         {
@@ -19,7 +19,7 @@ public class EnemiesSpawner : MonoBehaviour
         }
     }
 
-    public void OnEnemyDie(badPlayer enemy)
+    public void OnEnemyDie(BadPlayer enemy)
     {
         enemy.OnDie -= OnEnemyDie;
         badPlayers.Remove(enemy);

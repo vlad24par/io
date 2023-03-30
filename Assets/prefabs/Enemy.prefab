@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2571833702691587342}
   - component: {fileID: 2571833702691587343}
   - component: {fileID: 2571833702691587339}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Enemy
   m_TagString: badPlayer
   m_Icon: {fileID: 0}
@@ -136,6 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff8f745623467a4d97f85e10570cd59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedMin: 2
-  speedMax: 8
-  Bad_weight: 1
+  speedMin: 5
+  speedMax: 12
+  weight: 1

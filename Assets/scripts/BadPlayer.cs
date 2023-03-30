@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 
-public class badPlayer : MonoBehaviour
+public class BadPlayer : MonoBehaviour
 {
     [SerializeField] float speedMin;
     [SerializeField] float speedMax;
@@ -12,18 +12,16 @@ public class badPlayer : MonoBehaviour
     private FoodSpawner spawner;
     private Pleyer player;
 
-    public float Bad_weight = 1;
+    public float weight = 1;
 
     private float speed;
     private Food target;
     private bool isOnTarget = false;
     private IEnumerator findFoodCorutine;
     private List<GameObject> triggeredObjects = new List<GameObject>();
-    private bool player_in_collider;
-    private float bed_enemy_weight;
-    private GameObject bed_enemy;
+    private bool playerInCollider;
 
-    public event Action<badPlayer> OnDie;
+    public event Action<BadPlayer> OnDie;
 
     public void Init(Pleyer player, FoodSpawner spawner)
     {
@@ -69,21 +67,18 @@ public class badPlayer : MonoBehaviour
     {
         if (collision.CompareTag("Food") || collision.CompareTag("Badfood"))
         {
-            player_in_collider = false;
+            playerInCollider = false;
             triggeredObjects.Add(collision.gameObject);
             Eat(collision.GetComponent<Food>());
         }
         else if (collision.CompareTag("badPlayer"))
         {
-            bed_enemy_weight = GetComponent<badPlayer>().Bad_weight;
-            bed_enemy = collision.gameObject;
-            if (bed_enemy_weight <= Bad_weight / 3)
+            var badPlayer = collision.gameObject.GetComponent<BadPlayer>();
+            if (badPlayer.weight < weight)
             {
-                transform.position = Vector3.MoveTowards(transform.position, target.transform.position,
-                   speed * Time.deltaTime);
                 triggeredObjects.Add(collision.gameObject);
-                player_in_collider = false;
-                EatBadPlayer();
+                playerInCollider = false;
+                EatBadPlayer(badPlayer);
             }
             else
             {
@@ -92,12 +87,12 @@ public class badPlayer : MonoBehaviour
         }
         else if (collision.CompareTag("Player"))
         {
-            if (player.Weight <= Bad_weight / 3)
+            if (player.Weight <= weight / 3)
             {
                 transform.position = Vector3.MoveTowards(transform.position, target.transform.position,
                     speed * Time.deltaTime);
                 triggeredObjects.Add(collision.gameObject);
-                player_in_collider = true;
+                playerInCollider = true;
                 EatPlayer();
             }
             else
@@ -110,11 +105,10 @@ public class badPlayer : MonoBehaviour
             isOnTarget = true;
     }
 
-    private void EatBadPlayer()
+    private void EatBadPlayer(BadPlayer badPlayer)
     {
-        Bad_weight += bed_enemy_weight / 3;
-        Destroy(bed_enemy);
-
+        weight += badPlayer.weight / 4;
+        badPlayer.Die();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -137,21 +131,24 @@ public class badPlayer : MonoBehaviour
 
     private void Eat(Food food)
     {
-        Bad_weight += food.size;
+        weight += food.size;
+        if (weight < 0)
+        {
+            Die();
+        }
 
         if (food != null)
             Destroy(food.gameObject);
         isOnTarget = false;
 
-        var weightInPercent = Bad_weight / GameConfig.MaxWeight;
+        var weightInPercent = weight / GameConfig.MaxWeight;
         var scaleModificator = weightInPercent * GameConfig.MaxScale + 1;
         transform.localScale = Vector3.one * scaleModificator;
     }
 
     private void EatPlayer()
     {
-        Bad_weight += player.weight;
-        Bad_weight += bed_enemy_weight;
+        weight += player.weight;
         player.weight = -1;
     }
 

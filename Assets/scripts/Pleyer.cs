@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -10,20 +9,13 @@ public class Pleyer : MonoBehaviour
     public event Action<float> DieEndWin;
 
     [SerializeField] float speed;
-    [SerializeField] Rigidbody2D rigidbody;
     [SerializeField] GameObject PanelDie;
     [SerializeField] GameObject PanelWin;
-    [SerializeField] GameObject spawner;
     [SerializeField] Image FoodImage;
-    [SerializeField] Collider2D collider;
     [SerializeField] TextMeshProUGUI rooting_time;
 
     private float vertical = 1;
     public float weight = 1;
-    public float weightgain;
-    public float scaleModificator = 10;
-    public bool NormalCameraMove;
-    public Transform food;
 
     private bool stop_coroutine = true;
     private float time;
@@ -37,7 +29,6 @@ public class Pleyer : MonoBehaviour
         PanelWin.SetActive(false);
         PanelDie.SetActive(false);
         Time.timeScale = 1;
-        food = this.gameObject.transform;
     }
 
     public void Move(Vector3 direction)
@@ -54,28 +45,26 @@ public class Pleyer : MonoBehaviour
         var food = collision.GetComponent<Food>();
         if (collision.CompareTag("badPlayer") )
         {
-            var enemy = collision.GetComponent<badPlayer>();
+            var enemy = collision.GetComponent<BadPlayer>();
             
-            if(enemy.Bad_weight >= weight/3)
+            if(enemy.weight >= weight/3)
             {
                 DieEndWin?.Invoke(weight);
             }
             else
             {
                 enemy.Die();
-                AddWeight(enemy.Bad_weight / 3);
+                AddWeight(enemy.weight / 3);
             }
             return;
         }
         if (food.size <= weight/3)
         {
-            NormalCameraMove = true;
             AddWeight(food.size);
             Destroy(collision.gameObject);
         }
         else
         {
-            NormalCameraMove = false;
             food.size = food.size / 2;
             AddWeight(food.size);
         }
@@ -84,6 +73,7 @@ public class Pleyer : MonoBehaviour
         var scaleModificator = weightInPercent * GameConfig.MaxScale + 1;
         transform.localScale = Vector3.one * scaleModificator;
     }
+    
     private IEnumerator speed_up_coroutine()
     {
         stop_coroutine = true;
@@ -92,7 +82,7 @@ public class Pleyer : MonoBehaviour
             weight = weight - speed;
             WeightChange?.Invoke(weight);
             speed = speed + 0.2f;
-            for (int i = 0; i < time*10; i++)
+            for (int i = 0; i < time * 10; i++)
             {
                 rooting_time.text = " Rooting Time : " + (i - time);
                 yield return new WaitForSeconds(1f);
@@ -102,8 +92,8 @@ public class Pleyer : MonoBehaviour
         }
         rooting_time.text = " Rooting Time : nothing";
         time = 0;
-        StopCoroutine("speed_up_coroutine");
     }
+    
     public void speed_up()
     {
         if (weight >= 1)

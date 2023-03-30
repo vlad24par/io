@@ -6977,7 +6977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e7897eaf8b40409696d467a8f6a1dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numEnemies: 3
+  numEnemies: 6
   enemyPrefab: {fileID: 2571833702691587339, guid: da53f1d59f3274903b52a54c5279f0c8, type: 3}
   player: {fileID: 1893259657}
   spawner: {fileID: 1724855879}
@@ -13074,7 +13074,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1724855879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13651,7 +13651,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893259652}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
