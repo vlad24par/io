@@ -235,6 +235,7 @@ MonoBehaviour:
   FoodImage: {fileID: 0}
   collider: {fileID: 3739987087308584233}
   rooting_time: {fileID: 0}
+  weight: 1
   weightgain: 0
   scaleModificator: 10
   NormalCameraMove: 0

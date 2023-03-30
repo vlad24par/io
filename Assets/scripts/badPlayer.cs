@@ -20,6 +20,8 @@ public class badPlayer : MonoBehaviour
     private IEnumerator findFoodCorutine;
     private List<GameObject> triggeredObjects = new List<GameObject>();
     private bool player_in_collider;
+    private float bed_enemy_weight;
+    private GameObject bed_enemy;
 
     public event Action<badPlayer> OnDie;
 
@@ -71,12 +73,30 @@ public class badPlayer : MonoBehaviour
             triggeredObjects.Add(collision.gameObject);
             Eat(collision.GetComponent<Food>());
         }
+        else if (collision.CompareTag("badPlayer"))
+        {
+            bed_enemy_weight = GetComponent<badPlayer>().Bad_weight;
+            bed_enemy = collision.gameObject;
+            if (bed_enemy_weight <= Bad_weight / 3)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, target.transform.position,
+                   speed * Time.deltaTime);
+                triggeredObjects.Add(collision.gameObject);
+                player_in_collider = false;
+                EatBadPlayer();
+            }
+            else
+            {
+                return;
+            }
+        }
         else if (collision.CompareTag("Player"))
         {
             if (player.Weight <= Bad_weight / 3)
             {
                 transform.position = Vector3.MoveTowards(transform.position, target.transform.position,
                     speed * Time.deltaTime);
+                triggeredObjects.Add(collision.gameObject);
                 player_in_collider = true;
                 EatPlayer();
             }
@@ -88,6 +108,13 @@ public class badPlayer : MonoBehaviour
 
         if (collision.gameObject == target.gameObject)
             isOnTarget = true;
+    }
+
+    private void EatBadPlayer()
+    {
+        Bad_weight += bed_enemy_weight / 3;
+        Destroy(bed_enemy);
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -124,6 +151,8 @@ public class badPlayer : MonoBehaviour
     private void EatPlayer()
     {
         Bad_weight += player.weight;
+        Bad_weight += bed_enemy_weight;
         player.weight = -1;
     }
+
 }
