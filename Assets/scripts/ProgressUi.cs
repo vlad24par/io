@@ -15,12 +15,12 @@ public class ProgressUi : MonoBehaviour
     
     private void OnEnable()
     {
-        player.WeightChange += OnWeightChange;
+        player.Weight_Change += OnWeightChange;
     }
 
     private void OnDisable()
     {
-        player.WeightChange -= OnWeightChange;
+        player.Weight_Change -= OnWeightChange;
     }
 
     private void OnWeightChange(float weight)
