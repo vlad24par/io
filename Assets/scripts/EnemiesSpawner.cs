@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemiesSpawner : MonoBehaviour
 {
-    [SerializeField] private int numEnemies;
     [SerializeField] private BadPlayer enemyPrefab;
     [SerializeField] private Pleyer player;
     [SerializeField] private FoodSpawner spawner;
@@ -13,7 +12,7 @@ public class EnemiesSpawner : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < numEnemies; i++)
+        for (int i = 0; i < MainMenu.GameParams.Enemies; i++)
         {
             SpawnNewEnemy();
         }

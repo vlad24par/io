@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Events;
 
 public class UiManager : MonoBehaviour 
 {
@@ -15,15 +11,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] GameObject _Win;
     [SerializeField] public Pleyer _pleyer;
     [SerializeField] GameObject _SpeedUp;
-    [SerializeField] GameObject _PanelLNH;
-    [SerializeField] GameObject _Leicht;
-    [SerializeField] GameObject _Normal;
-    [SerializeField] GameObject _Hard;
 
-    private void Start()
-    {
-        _PanelLNH.SetActive(false);
-    }
     private void OnEnable()
     {
         _pleyer.DieEndWin += WinOrDie;
@@ -35,24 +23,6 @@ public class UiManager : MonoBehaviour
     }
 
     public void Replay()
-    {
-        SceneManager.LoadScene(1);
-    }
-
-    public void pley()
-    {
-        _PanelLNH.SetActive(true);
-
-    }
-    public void leicht()
-    {
-        SceneManager.LoadScene(1);
-    }
-    public void normal()
-    {
-        SceneManager.LoadScene(1);
-    }
-    public void hard()
     {
         SceneManager.LoadScene(1);
     }
@@ -74,7 +44,6 @@ public class UiManager : MonoBehaviour
             Time.timeScale = 1;
         }
     }
-
 
     public void Pause()
     {

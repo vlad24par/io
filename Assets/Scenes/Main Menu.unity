@@ -276,7 +276,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1364951387}
-        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: leicht
         m_Mode: 1
         m_Arguments:
@@ -545,7 +545,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1364951387}
-        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: normal
         m_Mode: 1
         m_Arguments:
@@ -658,7 +658,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1364951387}
-        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: hard
         m_Mode: 1
         m_Arguments:
@@ -975,21 +975,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1364951382}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fd8d0a51ce20df4ebeb3c962507e376, type: 3}
+  m_Script: {fileID: 11500000, guid: 57e431b32d5eb4347b9661b19b2cea1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pause: {fileID: 0}
-  _start: {fileID: 0}
-  _Replay_Button: {fileID: 0}
-  _Exit_Button: {fileID: 0}
-  _Die: {fileID: 0}
-  _Win: {fileID: 0}
-  _pleyer: {fileID: 3739987087308584230, guid: 1425bd6c182e66e49af12b1f86ef096a, type: 3}
-  _SpeedUp: {fileID: 0}
   _PanelLNH: {fileID: 1959278628}
-  _Leicht: {fileID: 635954577}
-  _Normal: {fileID: 1158639349}
-  _Hard: {fileID: 1296436483}
+  _easy: {fileID: 11400000, guid: 4e20e91cc8670481ba47e3fa4a8f3661, type: 2}
+  _normal: {fileID: 11400000, guid: 28c8015bc7e8b4b3aa5f3d620d784b9c, type: 2}
+  _hard: {fileID: 11400000, guid: 37ce4148ae98d44e08aa4fba6b981be3, type: 2}
 --- !u!1 &1776352627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,7 +1067,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1364951387}
-        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: pley
         m_Mode: 1
         m_Arguments:
@@ -1484,7 +1476,6 @@ GameObject:
   - component: {fileID: 2132114950}
   - component: {fileID: 2132114949}
   - component: {fileID: 2132114948}
-  - component: {fileID: 2132114951}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1558,15 +1549,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2132114951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2132114947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e431b32d5eb4347b9661b19b2cea1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

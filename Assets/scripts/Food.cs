@@ -22,10 +22,10 @@ public class Food: MonoBehaviour
 
     protected virtual void OnStart()
     {
-        size = Random.RandomRange(1, GameConfig.MaxWeight / 100);
+        size = Random.RandomRange(1, MainMenu.GameParams.MaxScore / 100);
 
-        var weightInPercent = size * 1f / GameConfig.MaxWeight;
-        var scaleModificator = weightInPercent * GameConfig.MaxScale + 1;
+        var weightInPercent = size * 1f / MainMenu.GameParams.MaxScore;
+        var scaleModificator = weightInPercent * MainMenu.GameParams.MaxScale + 1;
         
         transform.localScale = new Vector3(scaleModificator , scaleModificator , scaleModificator );
     }

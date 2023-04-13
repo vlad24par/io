@@ -26,7 +26,7 @@ public class ProgressUi : MonoBehaviour
     private void OnWeightChange(float weight)
     {
         textMeshPro.text = weight.ToString();
-        var weightInPercent = weight  / GameConfig.MaxWeight;
+        var weightInPercent = weight  / MainMenu.GameParams.MaxScore;
         image.fillAmount = Mathf.Clamp01(weightInPercent);
     }
 }

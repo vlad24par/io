@@ -141,15 +141,15 @@ public class BadPlayer : MonoBehaviour
             Destroy(food.gameObject);
         isOnTarget = false;
 
-        var weightInPercent = weight / GameConfig.MaxWeight;
-        var scaleModificator = weightInPercent * GameConfig.MaxScale + 1;
+        var weightInPercent = weight / MainMenu.GameParams.MaxScore;
+        var scaleModificator = weightInPercent * MainMenu.GameParams.MaxScale + 1;
         transform.localScale = Vector3.one * scaleModificator;
     }
 
     private void EatPlayer()
     {
-        weight += player.weight;
-        player.weight = -1;
+        weight += player._weight;
+        player._weight = -1;
     }
 
 }
