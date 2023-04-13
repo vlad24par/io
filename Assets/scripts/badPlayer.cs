@@ -150,9 +150,9 @@ public class badPlayer : MonoBehaviour
 
     private void EatPlayer()
     {
-        Bad_weight += player.weight;
+        Bad_weight += player._weight;
         Bad_weight += bed_enemy_weight;
-        player.weight = -1;
+        player._weight = -1;
     }
 
 }
